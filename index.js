@@ -56,7 +56,22 @@ async function run() {
       res.json(result);
     });
 
-   
+    // Get single model
+    app.get("/api/models/:id", async (req, res) => {
+      try {
+        const model = await modelsCollection.findOne({
+          _id: new ObjectId(req.params.id),
+        });
+        if (!model)
+          return res
+            .status(404)
+            .json({ success: false, message: "Model not found" });
+        res.json(model);
+      } catch {
+        res.status(400).json({ success: false, message: "Invalid ID" });
+      }
+    });
+
     // 404 fallback
     app.use((req, res) => {
       res.status(404).json({ success: false, message: "Route not found" });
