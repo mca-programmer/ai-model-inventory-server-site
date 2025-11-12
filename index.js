@@ -136,6 +136,14 @@ async function run() {
       res.json({ success: true, message: "Model purchased successfully" });
     });
 
+    // User's models
+    app.get("/api/models/my/:email", async (req, res) => {
+      const result = await modelsCollection
+        .find({ createdBy: req.params.email })
+        .toArray();
+      res.json(result);
+    });
+
     
 
     // 404 fallback
