@@ -144,7 +144,17 @@ async function run() {
       res.json(result);
     });
 
-    
+    // User's purchased models
+    app.get("/api/models/purchased/:email", async (req, res) => {
+      const purchases = await purchaseCollection
+        .find({ purchasedBy: req.params.email })
+        .toArray();
+      const modelIds = purchases.map((p) => new ObjectId(p.modelId));
+      const models = await modelsCollection
+        .find({ _id: { $in: modelIds } })
+        .toArray();
+      res.json(models);
+    });
 
     // 404 fallback
     app.use((req, res) => {
