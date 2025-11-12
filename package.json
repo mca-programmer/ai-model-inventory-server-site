@@ -1,0 +1,24 @@
+{
+  "name": "ai-model-inventory-server-site",
+  "version": "1.0.0",
+  "description": "AI Model Inventory Manager Server",
+  "main": "index.js",
+  "type": "module", 
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["AI", "Inventory", "MongoDB", "Express"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongodb": "^7.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
+
