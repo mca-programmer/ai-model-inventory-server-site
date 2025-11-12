@@ -111,6 +111,32 @@ async function run() {
       res.json({ success: true, message: "Model deleted successfully" });
     });
 
+    // Purchase model
+    app.patch("/api/models/purchase/:id", async (req, res) => {
+      const { purchasedBy } = req.body;
+      const model = await modelsCollection.findOne({
+        _id: new ObjectId(req.params.id),
+      });
+      if (!model)
+        return res
+          .status(404)
+          .json({ success: false, message: "Model not found" });
+
+      await modelsCollection.updateOne(
+        { _id: new ObjectId(req.params.id) },
+        { $inc: { purchased: 1 } }
+      );
+
+      await purchaseCollection.insertOne({
+        modelId: req.params.id,
+        purchasedBy,
+        purchasedAt: new Date(),
+      });
+
+      res.json({ success: true, message: "Model purchased successfully" });
+    });
+
+    
 
     // 404 fallback
     app.use((req, res) => {
