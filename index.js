@@ -41,8 +41,22 @@ async function run() {
       res.send("AI Model Inventory Server Running...");
     });
 
-   
+    // Get all models
+    app.get("/api/models", async (req, res) => {
+      const { search, framework, limit, sort } = req.query;
+      const query = {};
+      if (search) query.name = { $regex: search, $options: "i" };
+      if (framework) query.framework = framework;
 
+      let cursor = modelsCollection.find(query);
+      if (sort === "createdAt:desc") cursor = cursor.sort({ createdAt: -1 });
+      if (limit) cursor = cursor.limit(parseInt(limit));
+
+      const result = await cursor.toArray();
+      res.json(result);
+    });
+
+   
     // 404 fallback
     app.use((req, res) => {
       res.status(404).json({ success: false, message: "Route not found" });
