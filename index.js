@@ -72,6 +72,21 @@ async function run() {
       }
     });
 
+    // Add new model
+    app.post("/api/models", async (req, res) => {
+      const data = req.body;
+      if (!data.name || !data.framework || !data.description) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Missing required fields" });
+      }
+      data.createdAt = new Date();
+      data.purchased = 0;
+      const result = await modelsCollection.insertOne(data);
+      res.json({ success: true, insertedId: result.insertedId });
+    });
+
+
     // 404 fallback
     app.use((req, res) => {
       res.status(404).json({ success: false, message: "Route not found" });
