@@ -86,6 +86,18 @@ async function run() {
       res.json({ success: true, insertedId: result.insertedId });
     });
 
+    // Update model
+    app.put("/api/models/:id", async (req, res) => {
+      const result = await modelsCollection.updateOne(
+        { _id: new ObjectId(req.params.id) },
+        { $set: req.body }
+      );
+      if (result.modifiedCount === 0)
+        return res
+          .status(404)
+          .json({ success: false, message: "Model not found or no change" });
+      res.json({ success: true, message: "Model updated successfully" });
+    });
 
     // 404 fallback
     app.use((req, res) => {
