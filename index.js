@@ -99,6 +99,19 @@ async function run() {
       res.json({ success: true, message: "Model updated successfully" });
     });
 
+    // Delete model
+    app.delete("/api/models/:id", async (req, res) => {
+      const result = await modelsCollection.deleteOne({
+        _id: new ObjectId(req.params.id),
+      });
+      if (result.deletedCount === 0)
+        return res
+          .status(404)
+          .json({ success: false, message: "Model not found" });
+      res.json({ success: true, message: "Model deleted successfully" });
+    });
+
+
     // 404 fallback
     app.use((req, res) => {
       res.status(404).json({ success: false, message: "Route not found" });
