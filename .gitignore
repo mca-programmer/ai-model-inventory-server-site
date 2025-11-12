@@ -1,3 +1,4 @@
 node_modules
 .env
 invalid/self-signed certificates
+ai-modle-inventory-firebase-admins.json

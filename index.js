@@ -73,9 +73,10 @@ async function run() {
     });
 
     // Add new model
+
     app.post("/api/models", async (req, res) => {
       const data = req.body;
-      if (!data.name || !data.framework || !data.description) {
+      if (!data.name || !data.framework || !data.description || !data.image) {
         return res
           .status(400)
           .json({ success: false, message: "Missing required fields" });
