@@ -12,7 +12,41 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
+// MongoDB connection
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  console.error(" MONGODB_URI not found in .env file!");
+  process.exit(1);
+}
 
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+async function run() {
+  try {
+    await client.connect();
+    console.log(" MongoDB Connected");
+
+    const db = client.db("ai_model_inventory");
+    const modelsCollection = db.collection("models");
+    const purchaseCollection = db.collection("purchases");
+
+    // Root route
+    app.get("/", (req, res) => {
+      res.send("AI Model Inventory Server Running...");
+    });
+
+   
+
+    // 404 fallback
+    app.use((req, res) => {
+      res.status(404).json({ success: false, message: "Route not found" });
+    });
 
     app.listen(port, () => console.log(` Server running on port ${port}`));
   } catch (err) {
