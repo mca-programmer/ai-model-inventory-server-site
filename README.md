@@ -21,15 +21,15 @@ JWT / Firebase token verification (for private routes) <br>
 Deployed on Vercel / Render for fast and scalable hosting 
 ---
 
-### Folder Structure <br>
 server/ <br>
 │ <br>
-├── src/ <br>            
-│   └── index.js          # Main Express app <br>
-│ <br>
-├── .env.example <br>
-├── package.json <br>
-└── README.md 
+├── src/ <br>
+│   └── index.js          # Main Express Application <br>
+│  <br>
+├── .env.example          # Example environment variables   <br>
+├── package.json          # Dependencies & scripts  <br>
+└── README.md             # Documentation  <br>
+
 ---
 ## Thank You!
 
