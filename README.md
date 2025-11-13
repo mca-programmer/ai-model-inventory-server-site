@@ -21,9 +21,9 @@ JWT / Firebase token verification (for private routes) <br>
 Deployed on Vercel / Render for fast and scalable hosting 
 ---
 
-## Folder Structure <br>
+### Folder Structure <br>
 server/ <br>
-│
+│ <br>
 ├── src/ <br>            
 │   └── index.js          # Main Express app <br>
 │ <br>
@@ -31,6 +31,6 @@ server/ <br>
 ├── package.json <br>
 └── README.md 
 ---
-# Thank You!
+## Thank You!
 
 If you like this project, consider giving it a star on GitHub or sharing it with others who love AI-based web apps!
